@@ -5,6 +5,7 @@ const OrganizerLogin = ({ setView, styles }) => {
     email: '',
     password: ''
   });
+
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -17,8 +18,10 @@ const OrganizerLogin = ({ setView, styles }) => {
     setLoading(true);
     setError('');
 
+    const API_URL = process.env.REACT_APP_API_URL;
+
     try {
-      const response = await fetch('http://smart-ticketing-and-mobility-analysis-h6oi.onrender.com/api/auth/login', {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -27,22 +30,19 @@ const OrganizerLogin = ({ setView, styles }) => {
       const data = await response.json();
 
       if (response.ok) {
-        // 1. Check if the user is actually an Organizer
+        // Check role
         if (data.role === 'organizer') {
-          // Store user info and token for authorized requests later
           localStorage.setItem('userInfo', JSON.stringify(data));
-          
-          // 2. Redirect to Organizer Dashboard
-          setView('organizer-home'); 
+          setView('organizer-home');
         } else {
           setError('Access Denied: You do not have Organizer privileges.');
         }
       } else {
-        // 3. Handle "Incorrect" credentials from backend
         setError(data.message || 'Incorrect email or password.');
       }
+
     } catch (err) {
-      setError('Connection failed. Is the server running?');
+      setError('Connection failed. Please check backend server.');
     } finally {
       setLoading(false);
     }
@@ -52,17 +52,20 @@ const OrganizerLogin = ({ setView, styles }) => {
     <div style={styles.heroContainer}>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
         <div style={styles.formCard}>
+
           <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-            <h2 style={{ color: '#1e293b', margin: '0' }}>Organizer Login</h2>
-            <p style={{ color: '#64748b', fontSize: '0.9rem' }}>Secure Management Portal</p>
+            <h2 style={{ color: '#1e293b', margin: 0 }}>Organizer Login</h2>
+            <p style={{ color: '#64748b', fontSize: '0.9rem' }}>
+              Secure Management Portal
+            </p>
           </div>
 
           {error && (
-            <div style={{ 
-              backgroundColor: '#fee2e2', 
-              color: '#ef4444', 
-              padding: '10px', 
-              borderRadius: '6px', 
+            <div style={{
+              backgroundColor: '#fee2e2',
+              color: '#ef4444',
+              padding: '10px',
+              borderRadius: '6px',
               marginBottom: '15px',
               fontSize: '0.85rem',
               textAlign: 'center',
@@ -74,7 +77,7 @@ const OrganizerLogin = ({ setView, styles }) => {
 
           <form onSubmit={handleLogin}>
             <div style={{ marginBottom: '15px' }}>
-              <label style={{ fontSize: '0.85rem', fontWeight: '600', color: '#475569' }}>Email Address</label>
+              <label style={labelStyle}>Email Address</label>
               <input
                 name="email"
                 type="email"
@@ -87,7 +90,7 @@ const OrganizerLogin = ({ setView, styles }) => {
             </div>
 
             <div style={{ marginBottom: '20px' }}>
-              <label style={{ fontSize: '0.85rem', fontWeight: '600', color: '#475569' }}>Password</label>
+              <label style={labelStyle}>Password</label>
               <input
                 name="password"
                 type="password"
@@ -105,7 +108,7 @@ const OrganizerLogin = ({ setView, styles }) => {
               style={{
                 ...styles.primaryBtn,
                 width: '100%',
-                backgroundColor: '#1e293b', // Darker theme for organizer portal
+                backgroundColor: '#1e293b',
                 opacity: loading ? 0.7 : 1
               }}
             >
@@ -113,24 +116,31 @@ const OrganizerLogin = ({ setView, styles }) => {
             </button>
           </form>
 
-          <button 
+          <button
             onClick={() => setView('landing')}
-            style={{ 
-              width: '100%', 
-              background: 'none', 
-              border: 'none', 
-              color: '#64748b', 
-              marginTop: '15px', 
+            style={{
+              width: '100%',
+              background: 'none',
+              border: 'none',
+              color: '#64748b',
+              marginTop: '15px',
               cursor: 'pointer',
               fontSize: '0.85rem'
             }}
           >
             ← Return to Home
           </button>
+
         </div>
       </div>
     </div>
   );
+};
+
+const labelStyle = {
+  fontSize: '0.85rem',
+  fontWeight: '600',
+  color: '#475569'
 };
 
 export default OrganizerLogin;
