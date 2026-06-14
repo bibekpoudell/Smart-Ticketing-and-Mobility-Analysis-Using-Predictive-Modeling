@@ -22,7 +22,7 @@ const UserHome = ({ setView }) => {
   useEffect(() => {
     if (storedUser?.name) setUserName(storedUser.name);
 
-    fetch('http://localhost:5000/api/events/all')
+    fetch('smart-ticketing-and-mobility-analysis-h6oi.onrender.com/api/events/all')
       .then(res => res.json())
       .then(data => setEvents(data));
   }, []); // safe for CI

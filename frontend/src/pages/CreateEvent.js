@@ -44,7 +44,7 @@ const CreateEvent = ({ setView, styles }) => {
       // 2. Add Authorization Token if your route is protected
       const token = localStorage.getItem('token'); 
 
-      const response = await fetch('http://localhost:5000/api/events/create', {
+      const response = await fetch('http://smart-ticketing-and-mobility-analysis-h6oi.onrender.com/api/events/create', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}` // Pass JWT if 'protect' is used

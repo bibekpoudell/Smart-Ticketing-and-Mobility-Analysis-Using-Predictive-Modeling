@@ -13,7 +13,7 @@ const CrowdMonitor = () => {
 
     const fetchStatus = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/crowd/status');
+            const response = await fetch('http://smart-ticketing-and-mobility-analysis-h6oi.onrender.com/api/crowd/status');
             const result = await response.json();
             
             setData(prev => ({ 
