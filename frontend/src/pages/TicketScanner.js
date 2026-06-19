@@ -21,7 +21,7 @@ const TicketScanner = ({ setView, styles }) => {
             }
 
             const response = await fetch(
-                'http://smart-ticketing-and-mobility-analysis-h6oi.onrender.com/api/tickets/verify',
+                'https://smart-ticketing-and-mobility-analysis-su7m.onrender.com/api/tickets/verify',
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },

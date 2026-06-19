@@ -13,7 +13,7 @@ const Register = ({ setView, styles }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch('http://smart-ticketing-and-mobility-analysis-h6oi.onrender.com/api/auth/register', {
+      const res = await fetch('https://smart-ticketing-and-mobility-analysis-su7m.onrender.com/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

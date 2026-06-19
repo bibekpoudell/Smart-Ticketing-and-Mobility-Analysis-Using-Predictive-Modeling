@@ -13,7 +13,7 @@ const CrowdMonitor = () => {
 
     const fetchStatus = async () => {
         try {
-            const response = await fetch('http://smart-ticketing-and-mobility-analysis-h6oi.onrender.com/api/crowd/status');
+            const response = await fetch('https://smart-ticketing-and-mobility-analysis-su7m.onrender.com/api/crowd/status');
             const result = await response.json();
             
             setData(prev => ({ 
@@ -41,7 +41,7 @@ const CrowdMonitor = () => {
 
     const handleReset = async () => {
         try {
-            await fetch('http://localhost:5000/api/crowd/update', {
+            await fetch('https://smart-ticketing-and-mobility-analysis-su7m.onrender.com/api/crowd/update', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ count: 0 })
